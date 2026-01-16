@@ -120,42 +120,85 @@
     .logo-container img{height:74px;width:auto;display:block;filter:drop-shadow(0 8px 18px rgba(0,0,0,.45))}
     .nav-right{display:flex;align-items:center;gap:14px}
 
-    .floating-cta{
-      position:fixed;
-      right:18px;
-      bottom:18px;
-      z-index:1200;
-      display:flex;
-      gap:10px;
-      flex-direction: column;
-      width:auto;
-    }
-    .floating-cta .mini{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:10px 14px;border-radius:999px;
-      font-weight:700;text-decoration:none;
-      border:1px solid rgba(255,255,255,0.18);
-      transition:all .25s var(--ease);
-      background:rgba(255,255,255,0.06);
-      font-size:0.86rem;
-      white-space:nowrap;
-    }
-    .floating-cta .mini:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
-    .floating-cta .mini i{color:var(--gold)}
-    .floating-cta .pulse{position:relative;}
-    .floating-cta .pulse::after{
-      content:"";
-      position:absolute;inset:-6px;
-      border-radius:999px;
-      border:1px solid rgba(212,175,55,0.55);
-      opacity:.0;
-      animation:pulse 1.8s var(--ease) infinite;
-    }
-    @keyframes pulse{
-      0%{transform:scale(0.92);opacity:.0}
-      25%{opacity:.55}
-      100%{transform:scale(1.18);opacity:0}
-    }
+
+  /* ================= FLOATING CTA (DESKTOP + MOBILE) ================= */
+.floating-cta{
+  position: fixed;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  z-index: 1200;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none; /* so only buttons are clickable */
+}
+
+.floating-cta .mini{
+  pointer-events: auto;
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 800;
+  text-decoration: none;
+
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(10px);
+
+  transition: all .25s var(--ease);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.45);
+}
+
+.floating-cta .mini i{
+  color: var(--gold);
+  font-size: 1.35rem;
+}
+
+.floating-cta .mini:hover{
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+/* keep your pulse ring */
+.floating-cta .pulse{position:relative;}
+.floating-cta .pulse::after{
+  content:"";
+  position:absolute; inset:-8px;
+  border-radius:18px;
+  border:1px solid rgba(212,175,55,0.55);
+  opacity:0;
+  animation:pulse 1.8s var(--ease) infinite;
+}
+
+/* ================= MOBILE: FULL WIDTH STICKY BAR ================= */
+@media (max-width: 768px){
+  .floating-cta{
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+
+    gap: 12px;
+  }
+
+  .floating-cta .mini{
+    width: calc(50% - 6px);
+    height: 60px;
+            border-radius: 14px;
+        width: 50px;
+  }
+
+  .floating-cta .mini i{
+    font-size: 1.45rem;
+  }
+}
+
 
     .hero{
       position:relative;
@@ -423,10 +466,10 @@
       .amenities-grid{grid-template-columns:repeat(2,1fr)}
       .floating-cta{right:12px;bottom:12px}
     }
-    @media (max-width: 430px){
-      .amenities-grid{grid-template-columns:1fr}
-      .hero{height:88vh}
-    }
+    @media (max-width: 768px){
+  .amenities-grid{grid-template-columns:repeat(2,1fr)}
+}
+
 
     /* ================= POPUP FORM ================= */
     .popup-overlay{
@@ -795,12 +838,19 @@
 
 
   <!-- Floating CTA -->
-  <div class="floating-cta" aria-label="Quick actions">
-    <a class="mini" href="tel:+919743142444"><i class="fa-solid fa-phone"></i> Call</a>
-    <a class="mini pulse" href="https://wa.me/919743142444?text=Hi%20NVG%20Lifestyle%2C%20please%20share%20brochure%20and%20exact%20location%20for%20KIADB%20project." target="_blank" rel="noopener">
-      <i class="fa-brands fa-whatsapp"></i> WhatsApp
-    </a>
-  </div>
+  <!-- Floating CTA -->
+<div class="floating-cta" aria-label="Quick actions">
+  <a class="mini call-btn" href="tel:+919743142444" aria-label="Call">
+    <i class="fa-solid fa-phone"></i>
+  </a>
+
+  <a class="mini pulse wa-btn"
+     href="https://wa.me/919743142444?text=Hi%20NVG%20Lifestyle%2C%20please%20share%20brochure%20and%20exact%20location%20for%20KIADB%20project."
+     target="_blank" rel="noopener" aria-label="WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+</div>
+
 
   <!-- POPUP -->
   <div class="popup-overlay" id="leadPopup" aria-hidden="true">
@@ -1036,4 +1086,4 @@
 
 </body>
 </html>
-```
+
